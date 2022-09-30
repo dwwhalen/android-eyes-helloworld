@@ -60,4 +60,13 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+
+    // added per instructions in https://applitools.com/tutorials/quickstart/native-mobile/espresso
+    // If using the Androidx Libraries, add the following dependencies
+    androidTestImplementation 'com.applitools:eyes-android-espresso:4.+@aar'
+    androidTestImplementation 'com.applitools:eyes-android-common:4.+'
+    androidTestImplementation 'com.applitools:eyes-android-core:4.+'
+    androidTestImplementation 'com.applitools:eyes-android-components:4.+@aar'
+    androidTestImplementation 'com.applitools:eyes-android-components-androidx:4.+@aar'
 }
