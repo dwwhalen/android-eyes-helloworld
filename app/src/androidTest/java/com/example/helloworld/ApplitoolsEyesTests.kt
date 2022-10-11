@@ -1,11 +1,15 @@
 package com.example.helloworld
 
 
+import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.applitools.eyes.android.components.androidx.AndroidXComponentsProvider
 import com.applitools.eyes.android.espresso.Eyes
+import com.applitools.eyes.android.espresso.fluent.Target.window
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -15,20 +19,31 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class ApplitoolsEyesTests {
+
+    lateinit var scenario: ActivityScenario<MainActivity>
+
+    @Before
+    fun beforeTest() {
+        scenario = ActivityScenario.launch(MainActivity::class.java)
+    }
+
     @Test
-    fun useAppContext() {
+    fun myFirstEyesTest() {
         val eyes = Eyes()
         eyes.componentsProvider = AndroidXComponentsProvider()
-        eyes.apiKey = "SET IT!"
+        val applitoolsApiKey = InstrumentationRegistry.getArguments().getString("APPLITOOLS_API_KEY")
+        assertNotNull("parameter APPLITOOLS_API_KEY not set", applitoolsApiKey)
+        eyes.apiKey = applitoolsApiKey
 
         try {
-            eyes.open("Hello World!", "My first Espresso Android test!");
+            eyes.open("Hello World!", "Android Applitools Eyes test");
+            eyes.check(window().withName("Hello World"))
             val appContext = InstrumentationRegistry.getInstrumentation().targetContext
             assertEquals("com.example.helloworld", appContext.packageName)
+            eyes.close()
         }
         finally {
-            // If the test was aborted before eyes.close was called, ends the test as aborted.
             eyes.abortIfNotClosed()
         }
     }
