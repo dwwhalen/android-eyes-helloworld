@@ -32,7 +32,11 @@ class ApplitoolsEyesTests {
     fun myFirstEyesTest() {
         val eyes = Eyes()
         eyes.componentsProvider = AndroidXComponentsProvider()
-        val applitoolsApiKey = InstrumentationRegistry.getArguments().getString("APPLITOOLS_API_KEY")
+        var applitoolsApiKey = InstrumentationRegistry.getArguments().getString("APPLITOOLS_API_KEY")
+        if ( applitoolsApiKey == null) {
+            applitoolsApiKey = "set your key here if not passing as param"
+        }
+
         assertNotNull("parameter APPLITOOLS_API_KEY not set", applitoolsApiKey)
         eyes.apiKey = applitoolsApiKey
 
